@@ -91,19 +91,62 @@ extension CarbonKit {
                 static let cheese = Measurement(value: 13.5, unit: UnitMass.kgCO2eq)
             }
         }
-        
-        static let eggs = Measurement(value: 4.8, unit: UnitMass.kgCO2eq)
-        static let potatoes = Measurement(value: 2.9, unit: UnitMass.kgCO2eq)
-        static let rice = Measurement(value: 2.7, unit: UnitMass.kgCO2eq)
-        static let lentils = Measurement(value: 0.9, unit: UnitMass.kgCO2eq)
-        
-        static let tofu = Measurement(value: 2.0, unit: UnitMass.kgCO2eq)
-        static let vegetables = Measurement(value: 2.0, unit: UnitMass.kgCO2eq)
-        static let nuts = Measurement(value: 2.3, unit: UnitMass.kgCO2eq)
-        static let beans = Measurement(value: 2.0, unit: UnitMass.kgCO2eq)
-        static let fruit = Measurement(value: 1.1, unit: UnitMass.kgCO2eq)
-        
-        static let coffee = Measurement(value: 3.14, unit: UnitMass.kgCO2eq)
-        static let chocolate = Measurement(value: 4.87, unit: UnitMass.kgCO2eq)
+
+        enum Other: CO2Measurable {
+            case eggs(weight: Measurement<UnitMass>)
+            case potatoes(weight: Measurement<UnitMass>)
+            case rice(weight: Measurement<UnitMass>)
+            case lentils(weight: Measurement<UnitMass>)
+            case tofu(weight: Measurement<UnitMass>)
+            case vegetables(weight: Measurement<UnitMass>)
+            case nuts(weight: Measurement<UnitMass>)
+            case beans(weight: Measurement<UnitMass>)
+            case fruit(weight: Measurement<UnitMass>)
+            case coffee(weight: Measurement<UnitMass>)
+            case chocolate(weight: Measurement<UnitMass>)
+
+            var CO2: Measurement<UnitMass> {
+                switch self {
+                case .eggs(let weight):
+                    return weight.converted(to: UnitMass.kilograms).value * C02Intensity.eggs
+                case .potatoes(let weight):
+                    return weight.converted(to: UnitMass.kilograms).value * C02Intensity.potatoes
+                case .rice(let weight):
+                    return weight.converted(to: UnitMass.kilograms).value * C02Intensity.rice
+                case .lentils(let weight):
+                    return weight.converted(to: UnitMass.kilograms).value * C02Intensity.lentils
+                case .tofu(let weight):
+                    return weight.converted(to: UnitMass.kilograms).value * C02Intensity.tofu
+                case .vegetables(let weight):
+                    return weight.converted(to: UnitMass.kilograms).value * C02Intensity.vegetables
+                case .nuts(let weight):
+                    return weight.converted(to: UnitMass.kilograms).value * C02Intensity.nuts
+                case .beans(let weight):
+                    return weight.converted(to: UnitMass.kilograms).value * C02Intensity.beans
+                case .fruit(let weight):
+                    return weight.converted(to: UnitMass.kilograms).value * C02Intensity.fruit
+                case .coffee(let weight):
+                    return weight.converted(to: UnitMass.kilograms).value * C02Intensity.coffee
+                case .chocolate(let weight):
+                    return weight.converted(to: UnitMass.kilograms).value * C02Intensity.chocolate
+                }
+            }
+
+            private struct C02Intensity {
+                static let eggs = Measurement(value: 4.8, unit: UnitMass.kgCO2eq)
+                static let potatoes = Measurement(value: 2.9, unit: UnitMass.kgCO2eq)
+                static let rice = Measurement(value: 2.7, unit: UnitMass.kgCO2eq)
+                static let lentils = Measurement(value: 0.9, unit: UnitMass.kgCO2eq)
+
+                static let tofu = Measurement(value: 2.0, unit: UnitMass.kgCO2eq)
+                static let vegetables = Measurement(value: 2.0, unit: UnitMass.kgCO2eq)
+                static let nuts = Measurement(value: 2.3, unit: UnitMass.kgCO2eq)
+                static let beans = Measurement(value: 2.0, unit: UnitMass.kgCO2eq)
+                static let fruit = Measurement(value: 1.1, unit: UnitMass.kgCO2eq)
+
+                static let coffee = Measurement(value: 3.14, unit: UnitMass.kgCO2eq)
+                static let chocolate = Measurement(value: 4.87, unit: UnitMass.kgCO2eq)
+            }
+        }
     }
 }
